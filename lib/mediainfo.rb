@@ -413,6 +413,22 @@ class Mediainfo
     @raw_response
   end
 
+  alias_method :to_h, :to_hash
+
+  def to_h
+    hash = {}
+    self.streams.each do |stream|
+      stream_type = stream.instance_variable_get(:@stream_type)
+      if stream.general?
+        hash.merge!(stream.parsed_response.flatten.last)
+      else
+        hash[stream_type] ||= []
+        hash[stream_type] << stream.parsed_response.flatten.last
+      end
+    end
+    return hash
+  end
+
   class << self
     attr_accessor :path
 
