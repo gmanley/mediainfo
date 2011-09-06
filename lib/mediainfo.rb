@@ -413,7 +413,6 @@ class Mediainfo
     @raw_response
   end
 
-  alias_method :to_h, :to_hash
 
   def to_h
     hash = {}
@@ -428,6 +427,7 @@ class Mediainfo
     end
     return hash
   end
+  alias_method :to_hash, :to_h
 
   class << self
     attr_accessor :path
